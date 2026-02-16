@@ -2,9 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-generate-a-new-pixel-art-style-home-page-background-image-depicting-a-playground-landscape-with-pets-playing-in-the-distance-no-ui-text-embedded-in-the-image-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-ensure-it-can-be-referenced-from-react-via-a-stable-public-path",
-      "featureTitle": "Generate a new pixel-art style Home page background image depicting a playground landscape with pets playing in the distance (no UI text embedded in the image). Store it as a static asset under frontend/public/assets/generated and ensure it can be referenced from React via a stable public path.",
-      "files": [],
+      "featureId": "feature-fix-the-petoverlay-so-the-pet-visually-follows-the-user-during-an-active-session-the-overlay-position-should-track-the-user-s-pointer-movement-within-the-page-rather-than-feeling-stuck-in-one-corner-maintain-non-blocking-behavior-do-not-interfere-with-page-interactions-and-keep-the-overlay-fully-on-screen",
+      "featureTitle": "Fix the PetOverlay so the pet visually follows the user during an active session (the overlay position should track the user’s pointer/movement within the page rather than feeling ‘stuck’ in one corner). Maintain non-blocking behavior (do not interfere with page interactions) and keep the overlay fully on-screen.",
+      "files": [
+        "frontend/src/components/PetOverlay.tsx",
+        "frontend/src/hooks/usePointerFollow.ts"
+      ],
       "components": [
         "authorization@4.0.0",
         "core-infrastructure@1.0.2",
@@ -14,16 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-14"
+        "REQ-18"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-apply-the-new-playground-landscape-background-to-the-home-session-setup-screen-in-a-way-that-preserves-readability-and-the-existing-pixel-desktop-theme-the-background-must-not-interfere-with-interactions-forms-buttons-and-must-not-obscure-the-persistent-petoverlay-when-a-session-is-active",
-      "featureTitle": "Apply the new playground landscape background to the Home (session setup) screen in a way that preserves readability and the existing pixel-desktop theme. The background must not interfere with interactions (forms/buttons) and must not obscure the persistent PetOverlay when a session is active.",
+      "featureId": "feature-fix-sprite-rendering-in-petoverlay-so-only-one-pet-frame-is-visible-at-a-time-do-not-show-the-entire-sprite-sheet-ensure-the-speech-bubble-and-mute-icon-remain-correctly-positioned-relative-to-the-single-visible-pet-frame",
+      "featureTitle": "Fix sprite rendering in PetOverlay so only one pet frame is visible at a time (do not show the entire sprite sheet). Ensure the speech bubble and mute icon remain correctly positioned relative to the single visible pet frame.",
       "files": [
-        "frontend/src/components/AppShell.tsx",
-        "frontend/src/screens/SessionSetupScreen.tsx"
+        "frontend/src/components/PetOverlay.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -34,16 +36,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-19"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-make-the-app-end-to-end-functional-by-ensuring-the-complete-flow-works-without-runtime-errors-for-both-authenticated-and-unauthenticated-states-login-internet-identity-profile-setup-if-missing-start-session-focus-timer-transition-to-break-save-completed-session-to-backend-view-session-history-in-progress-with-graceful-handling-when-the-user-is-not-logged-in-no-unauthorized-traps-causing-a-broken-ui",
-      "featureTitle": "Make the app end-to-end functional by ensuring the complete flow works without runtime errors for both authenticated and unauthenticated states: login (Internet Identity) → profile setup (if missing) → start session → focus timer → transition to break → save completed session to backend → view session history in Progress, with graceful handling when the user is not logged in (no unauthorized traps causing a broken UI).",
+      "featureId": "feature-update-the-app-s-favicon-app-icon-so-it-displays-a-single-pet-not-multiple-pets-frames-use-a-pixel-art-single-pet-icon-and-ensure-it-is-used-by-the-browser-tab-and-any-manifest-pwa-icon-configuration-present-in-the-project",
+      "featureTitle": "Update the app’s favicon/app icon so it displays a single pet (not multiple pets/frames). Use a pixel-art single-pet icon and ensure it is used by the browser tab (and any manifest/PWA icon configuration present in the project).",
       "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/screens/BreakRewardScreen.tsx"
+        "frontend/index.html",
+        "frontend/public/manifest.webmanifest"
       ],
       "components": [
         "authorization@4.0.0",
@@ -54,29 +56,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-use-saved-user-settings-focus-duration-break-duration-wasted-platforms-to-prefill-and-synchronize-the-home-setup-experience-and-distraction-check-ins-so-the-default-configuration-is-consistent-across-home-and-progress-settings",
-      "featureTitle": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
-      "files": [
-        "frontend/src/components/DistractedCheckInDialog.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/screens/ProgressSettingsScreen.tsx",
-        "frontend/src/screens/SessionSetupScreen.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-17"
+        "REQ-20"
       ],
       "confidence": "high"
     }

@@ -1,0 +1,28 @@
+{
+  "name": "Your Desk Pet",
+  "short_name": "Desk Pet",
+  "description": "A focus companion that keeps you accountable",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fef3e2",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "/assets/generated/favicon-cat.dim_64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/generated/app-icon-cat.dim_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/generated/app-icon-dog.dim_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

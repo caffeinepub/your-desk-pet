@@ -1,98 +1,78 @@
 {
   "kind": "build_request",
-  "title": "Add playground landscape background to Home and ensure end-to-end user flow works reliably",
-  "priority": "normal",
+  "title": "Fix PetOverlay follow behavior and ensure only a single pet is shown (overlay + app icon)",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Generate a new pixel-art style Home page background image depicting a playground landscape with pets playing in the distance (no UI text embedded in the image). Store it as a static asset under frontend/public/assets/generated and ensure it can be referenced from React via a stable public path.",
+      "id": "REQ-18",
+      "text": "Fix the PetOverlay so the pet visually follows the user during an active session (the overlay position should track the user’s pointer/movement within the page rather than feeling ‘stuck’ in one corner). Maintain non-blocking behavior (do not interfere with page interactions) and keep the overlay fully on-screen.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "make the home page background look like the landscape of a playground where pets are playing in the background."
+          "the pet is not following the user. fix it."
         ]
       },
       "acceptanceCriteria": [
-        "A new background image file exists at frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png",
-        "The image visually reads as a playground landscape scene with small pets playing in the background, in a cohesive pixel-art style",
-        "No text, logos, or UI elements are baked into the image"
+        "During an active focus/break session, the pet overlay repositions in response to pointer movement (smoothly, without jitter).",
+        "The overlay never blocks clicks/typing in underlying UI except for its own controls (e.g., mute button remains clickable).",
+        "The overlay clamps to the viewport so it cannot drift off-screen."
       ]
     },
     {
-      "id": "REQ-15",
-      "text": "Apply the new playground landscape background to the Home (session setup) screen in a way that preserves readability and the existing pixel-desktop theme. The background must not interfere with interactions (forms/buttons) and must not obscure the persistent PetOverlay when a session is active.",
+      "id": "REQ-19",
+      "text": "Fix sprite rendering in PetOverlay so only one pet frame is visible at a time (do not show the entire sprite sheet). Ensure the speech bubble and mute icon remain correctly positioned relative to the single visible pet frame.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "make the home page background look like the landscape of a playground where pets are playing in the background."
+          "also make the icon show only one of the pet."
         ]
       },
       "acceptanceCriteria": [
-        "When the current screen is Home/Setup, the playground background is visible behind the content",
-        "Session setup form content remains legible (e.g., via an overlay tint/blur layer or solid card background) in both light and dark mode",
-        "Interactive controls on the Home/Setup screen remain clickable (background layer does not capture pointer events)",
-        "When a session is active and PetOverlay is shown, the overlay remains visible above the background and Home content"
+        "The PetOverlay displays exactly one 128x128 sprite frame (no adjacent frames from the sprite sheet are visible).",
+        "Changing mood/phase swaps the visible frame correctly without resizing or showing multiple pets.",
+        "The layout matches the intent shown in the uploaded screenshot (single pet body with bubble above; no multi-frame strip visible)."
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "Make the app end-to-end functional by ensuring the complete flow works without runtime errors for both authenticated and unauthenticated states: login (Internet Identity) → profile setup (if missing) → start session → focus timer → transition to break → save completed session to backend → view session history in Progress, with graceful handling when the user is not logged in (no unauthorized traps causing a broken UI).",
-      "target": "both",
+      "id": "REQ-20",
+      "text": "Update the app’s favicon/app icon so it displays a single pet (not multiple pets/frames). Use a pixel-art single-pet icon and ensure it is used by the browser tab (and any manifest/PWA icon configuration present in the project).",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "Also make this whole thing end-to-end functional."
+          "also make the icon show only one of the pet."
         ]
       },
       "acceptanceCriteria": [
-        "Unauthenticated users can load the app and use the Home/Setup screen without the UI breaking due to failed backend queries (no uncaught exceptions from unauthorized calls)",
-        "After logging in, if no profile exists, the ProfileSetupDialog appears and saving a profile results in the app continuing normally",
-        "Starting a session from Home/Setup navigates to Focus and the countdown behaves normally (pause/resume/end still work)",
-        "When the focus phase completes and the app transitions to Break, the completed session is saved exactly once via the backend addSession call",
-        "After at least one completed session, Progress shows the session in “Recent Sessions” without requiring a page refresh",
-        "If the user navigates between Home and Progress during an active session, the session state remains active and does not reset (no broken navigation/state)"
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "text": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Also make this whole thing end-to-end functional."
-        ]
-      },
-      "acceptanceCriteria": [
-        "When logged in and user settings exist, the Home/Setup screen initializes focus and break duration inputs using the saved defaults",
-        "Updating settings in Progress (focus/break/platforms) and saving them persists to the backend and is reflected when returning to Home/Setup",
-        "The distraction platform list used by “I got distracted” reflects the saved wastedPlatforms list when logged in",
-        "When not logged in, the app uses local defaults and does not attempt settings persistence"
+        "Browser tab icon renders as a single pet icon (not a sprite strip / multiple pets).",
+        "If a web manifest is present/used by the build, it references the new single-pet icon asset(s) and no longer points to sprite sheets.",
+        "No console errors related to missing icon assets."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui (compose these components instead).",
-    "Keep backend logic in the single Motoko actor (backend/main.mo). Create backend/migration.mo only if existing stable state must be migrated."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Backend must remain single-actor; no backend changes are required for these fixes."
   ],
   "nonGoals": [
-    "Do not add a new authentication provider beyond Internet Identity.",
-    "Do not add real-time features (WebSockets, push notifications, live multiplayer).",
-    "Do not redesign non-Home screens beyond what is necessary to keep the end-to-end flow functional and visually consistent."
+    "Adding new pet types beyond cat/dog.",
+    "Changing mood/dialogue logic or session timing logic beyond what is necessary to keep the overlay functional.",
+    "Redesigning the overall UI theme."
   ],
   "imageRequirements": {
     "required": [
-      "Pixel-art playground landscape background with small pets playing in the distance (playground-landscape-bg.dim_1920x1080.png)"
+      "Pixel-art app icon depicting a single pet (cat) centered on a transparent or solid background (app-icon-cat.dim_512x512.png)",
+      "Pixel-art app icon depicting a single pet (dog) centered on a transparent or solid background (app-icon-dog.dim_512x512.png)",
+      "Pixel-art favicon depicting a single pet (cat) simplified for small sizes (favicon-cat.dim_64x64.png)",
+      "Pixel-art favicon depicting a single pet (dog) simplified for small sizes (favicon-dog.dim_64x64.png)"
     ],
     "edits": []
   },

@@ -1,89 +1,76 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T11:58:43.761Z",
+  "generatedAt": "2026-02-16T12:06:10.140Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-14",
-        "summary": "Generate a new pixel-art style Home page background image depicting a playground landscape with pets playing in the distance (no UI text embedded in the image). Store it as a static asset under frontend/public/assets/generated and ensure it can be referenced from React via a stable public path.",
+        "id": "REQ-18",
+        "summary": "Fix the PetOverlay so the pet visually follows the user during an active session (the overlay position should track the user’s pointer/movement within the page rather than feeling ‘stuck’ in one corner). Maintain non-blocking behavior (do not interfere with page interactions) and keep the overlay fully on-screen.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png"
+          "frontend/src/hooks/usePointerFollow.ts",
+          "frontend/src/components/PetOverlay.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png"
+          "frontend/src/hooks/usePointerFollow.ts",
+          "frontend/src/components/PetOverlay.tsx"
         ]
       },
       {
-        "id": "REQ-15",
-        "summary": "Apply the new playground landscape background to the Home (session setup) screen in a way that preserves readability and the existing pixel-desktop theme. The background must not interfere with interactions (forms/buttons) and must not obscure the persistent PetOverlay when a session is active.",
+        "id": "REQ-19",
+        "summary": "Fix sprite rendering in PetOverlay so only one pet frame is visible at a time (do not show the entire sprite sheet). Ensure the speech bubble and mute icon remain correctly positioned relative to the single visible pet frame.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/AppShell.tsx",
-          "frontend/src/screens/SessionSetupScreen.tsx"
+          "frontend/src/components/petSprites.ts",
+          "frontend/src/components/PetOverlay.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/AppShell.tsx",
-          "frontend/src/screens/SessionSetupScreen.tsx"
+          "frontend/src/components/PetOverlay.tsx"
         ]
       },
       {
-        "id": "REQ-16",
-        "summary": "Make the app end-to-end functional by ensuring the complete flow works without runtime errors for both authenticated and unauthenticated states: login (Internet Identity) → profile setup (if missing) → start session → focus timer → transition to break → save completed session to backend → view session history in Progress, with graceful handling when the user is not logged in (no unauthorized traps causing a broken UI).",
+        "id": "REQ-20",
+        "summary": "Update the app’s favicon/app icon so it displays a single pet (not multiple pets/frames). Use a pixel-art single-pet icon and ensure it is used by the browser tab (and any manifest/PWA icon configuration present in the project).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/screens/BreakRewardScreen.tsx"
+          "frontend/public/assets/generated/app-icon-cat.dim_512x512.png",
+          "frontend/public/assets/generated/app-icon-dog.dim_512x512.png",
+          "frontend/public/assets/generated/favicon-cat.dim_64x64.png",
+          "frontend/public/assets/generated/favicon-dog.dim_64x64.png",
+          "frontend/index.html",
+          "frontend/public/manifest.webmanifest"
         ],
         "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/screens/BreakRewardScreen.tsx"
-        ]
-      },
-      {
-        "id": "REQ-17",
-        "summary": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/screens/SessionSetupScreen.tsx",
-          "frontend/src/screens/ProgressSettingsScreen.tsx",
-          "frontend/src/components/DistractedCheckInDialog.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/useQueries.ts",
-          "frontend/src/screens/SessionSetupScreen.tsx",
-          "frontend/src/screens/ProgressSettingsScreen.tsx",
-          "frontend/src/components/DistractedCheckInDialog.tsx"
+          "frontend/public/assets/generated/app-icon-cat.dim_512x512.png",
+          "frontend/public/assets/generated/app-icon-dog.dim_512x512.png",
+          "frontend/public/assets/generated/favicon-cat.dim_64x64.png",
+          "frontend/public/assets/generated/favicon-dog.dim_64x64.png",
+          "frontend/index.html",
+          "frontend/public/manifest.webmanifest"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/AppShell.tsx",
-    "frontend/src/components/DistractedCheckInDialog.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/screens/BreakRewardScreen.tsx",
-    "frontend/src/screens/ProgressSettingsScreen.tsx",
-    "frontend/src/screens/SessionSetupScreen.tsx",
+    "frontend/index.html",
+    "frontend/public/assets/generated/app-icon-cat.dim_512x512.png",
+    "frontend/public/assets/generated/app-icon-dog.dim_512x512.png",
+    "frontend/public/assets/generated/favicon-cat.dim_64x64.png",
+    "frontend/public/assets/generated/favicon-dog.dim_64x64.png",
+    "frontend/public/manifest.webmanifest",
+    "frontend/src/components/PetOverlay.tsx",
+    "frontend/src/hooks/usePointerFollow.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

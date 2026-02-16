@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Build “Your Desk Pet”: a lightweight desktop productivity/pomodoro app-game with a persistent on-screen virtual pet (cat or dog) that reacts in real time to focus/procrastination and rewards completed sessions with positive interactions (feeding/grooming/petting).",
   "architectural_notes": [
     "Pet art style: simple pixel art characters (cat and dog).",
@@ -9,9 +9,12 @@
     "Pet overlay presentation: render as a single pet figure (minimal chrome) and persist across in-app screen navigation (overlay mounted above route changes).",
     "Home screen visual direction: pixel-art playground landscape background with pets playing (keep subtle to avoid distraction)."
   ],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Pixel-art playground landscape background with small pets playing in the distance (playground-landscape-bg.dim_1920x1080.png)",
+  "known_issues": [
+    "Pet overlay is not following the user as expected (pet does not track the user during use).",
+    "App/icon is showing multiple pets instead of a single pet (should display only one pet)."
+  ],
+  "isFixRequest": true,
+  "imageRequirements": "## Required Images\n- Pixel-art app icon depicting a single pet (cat) centered on a transparent or solid background (app-icon-cat.dim_512x512.png)\n- Pixel-art app icon depicting a single pet (dog) centered on a transparent or solid background (app-icon-dog.dim_512x512.png)\n- Pixel-art favicon depicting a single pet (cat) simplified for small sizes (favicon-cat.dim_64x64.png)\n- Pixel-art favicon depicting a single pet (dog) simplified for small sizes (favicon-dog.dim_64x64.png)",
   "existing_features": [
     {
       "id": "feature-implement-the-core-set-focus-time-flow-allow-the-user-to-select-a-pet-cat-or-dog-configure-focus-duration-and-break-duration-optionally-enable-repeating-break-cycles-and-optionally-enter-a-task-list-for-the-session",
@@ -138,6 +141,30 @@
       "title": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
       "reqIds": [
         "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-petoverlay-so-the-pet-visually-follows-the-user-during-an-active-session-the-overlay-position-should-track-the-user-s-pointer-movement-within-the-page-rather-than-feeling-stuck-in-one-corner-maintain-non-blocking-behavior-do-not-interfere-with-page-interactions-and-keep-the-overlay-fully-on-screen",
+      "title": "Fix the PetOverlay so the pet visually follows the user during an active session (the overlay position should track the user’s pointer/movement within the page rather than feeling ‘stuck’ in one corner). Maintain non-blocking behavior (do not interfere with page interactions) and keep the overlay fully on-screen.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-sprite-rendering-in-petoverlay-so-only-one-pet-frame-is-visible-at-a-time-do-not-show-the-entire-sprite-sheet-ensure-the-speech-bubble-and-mute-icon-remain-correctly-positioned-relative-to-the-single-visible-pet-frame",
+      "title": "Fix sprite rendering in PetOverlay so only one pet frame is visible at a time (do not show the entire sprite sheet). Ensure the speech bubble and mute icon remain correctly positioned relative to the single visible pet frame.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-s-favicon-app-icon-so-it-displays-a-single-pet-not-multiple-pets-frames-use-a-pixel-art-single-pet-icon-and-ensure-it-is-used-by-the-browser-tab-and-any-manifest-pwa-icon-configuration-present-in-the-project",
+      "title": "Update the app’s favicon/app icon so it displays a single pet (not multiple pets/frames). Use a pixel-art single-pet icon and ensure it is used by the browser tab (and any manifest/PWA icon configuration present in the project).",
+      "reqIds": [
+        "REQ-20"
       ],
       "version": 1
     }

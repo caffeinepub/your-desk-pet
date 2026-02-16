@@ -7,7 +7,7 @@
   "frontend/src/screens/ActiveSessionScreen.tsx": "Focus session screen consuming centralized timer state and controls, displaying countdown and session controls without managing its own timer lifecycle.",
   "frontend/src/screens/BreakRewardScreen.tsx": "Break/reward screen with centralized timer state, reward interactions, and robust single-save session persistence using useRef to prevent duplicate saves across re-renders.",
   "frontend/src/screens/ProgressSettingsScreen.tsx": "Combined progress and settings screen with session history statistics, recent sessions table, and editable default settings including pet type and distraction platforms with proper backend sync.",
-  "frontend/src/components/PetOverlay.tsx": "Floating pet sprite overlay displaying pixel-art animal with speech bubble and mute toggle, styled as a standalone figure without card container.",
+  "frontend/src/components/PetOverlay.tsx": "Floating pet sprite overlay with pointer-following behavior, single-frame sprite rendering using overflow-hidden viewport, and speech bubble/mute controls positioned relative to the pet.",
   "frontend/src/components/SpeechBubble.tsx": "Speech bubble component with improved contrast and readability for light and dark modes, anchored to pet overlay.",
   "frontend/src/components/SessionSummaryPanel.tsx": "Compact panel displaying current session configuration details including pet type, durations, repeat setting, and task list.",
   "frontend/src/components/RewardActionsBar.tsx": "Action bar with pixel-art icon buttons for reward interactions (feed, groom, pet, play) during break phase.",
@@ -25,5 +25,8 @@
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with proper authentication checks, identity-aware queries that only execute when logged in, and correct parameter passing including wasSuccessful for addSession.",
   "frontend/src/index.css": "Global styles with warm amber/orange OKLCH color system for pixel-desktop theme, supporting light and dark modes with pixel-art rendering utilities.",
   "frontend/tailwind.config.js": "Tailwind configuration with extended warm color palette, custom border radius, and Inter font family for cohesive pixel-desktop aesthetic.",
-  "frontend/src/state/useSessionController.ts": "Centralized session controller hook managing session lifecycle, phase transitions (focus/break/idle), timer state, and interruption tracking across all screens."
+  "frontend/src/state/useSessionController.ts": "Centralized session controller hook managing session lifecycle, phase transitions (focus/break/idle), timer state, and interruption tracking across all screens.",
+  "frontend/src/hooks/usePointerFollow.ts": "Reusable hook that tracks pointer movement with smooth interpolation and viewport clamping, returning a position that keeps the overlay fully on-screen with proper TypeScript typing for React 19.",
+  "frontend/index.html": "HTML entry point with favicon and web manifest linkage pointing to single-pet icon assets.",
+  "frontend/public/manifest.webmanifest": "Web app manifest defining PWA configuration with single-pet cat and dog icon assets for various sizes and purposes."
 }

@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add a pixel-art playground landscape background to the Home/Setup screen and make the core app flow work reliably end-to-end for both logged-in and logged-out users.
+**Goal:** Fix the pet overlay so it smoothly follows the user during active sessions, renders only a single sprite frame (not the full sprite sheet), and update the browser icon/favicon to a single-pet pixel-art icon.
 
 **Planned changes:**
-- Add a new static pixel-art playground landscape background asset and reference it via a stable public path.
-- Apply the new background to the Home/Setup screen with readability safeguards (e.g., tint/blur/solid panels), ensuring it doesn’t capture pointer events and doesn’t obscure the persistent PetOverlay during an active session.
-- Fix end-to-end runtime and state issues across: Internet Identity login → profile setup (when missing) → start session → focus timer → break transition → save completed session (exactly once) → show session in Progress without refresh; handle unauthenticated usage without unauthorized errors breaking the UI.
-- Synchronize saved user settings (focus duration, break duration, wasted platforms) so Home/Setup prefills from saved defaults when logged in, Progress settings changes persist and reflect back on Home/Setup, and distraction check-ins use the saved wastedPlatforms list; use local defaults when not logged in.
+- Update PetOverlay positioning logic so, during an active focus/break session, the overlay tracks pointer movement smoothly, stays fully within the viewport, and remains non-blocking to page interactions except for its own controls.
+- Fix PetOverlay sprite rendering so only one 128x128 frame is visible at a time (no adjacent frames), while keeping the speech bubble and mute icon correctly anchored relative to the visible pet.
+- Replace the app favicon/app icon assets/config so the browser tab (and any existing manifest/PWA icons) use a single-pet pixel-art icon instead of any sprite sheet/strip.
 
-**User-visible outcome:** The Home/Setup screen shows a playground pixel-art background while remaining readable and interactive, and users can reliably complete the full session flow and see results in Progress, with settings consistently applied whether logged in or using the app unauthenticated.
+**User-visible outcome:** During sessions, the pet overlay follows the user’s movement smoothly without blocking the app, shows one pet (not a strip of frames), and the browser tab icon displays a single pet.
