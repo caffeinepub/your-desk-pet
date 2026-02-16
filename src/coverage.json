@@ -1,0 +1,92 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-16T11:58:43.761Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 4,
+    "items": [
+      {
+        "id": "REQ-14",
+        "summary": "Generate a new pixel-art style Home page background image depicting a playground landscape with pets playing in the distance (no UI text embedded in the image). Store it as a static asset under frontend/public/assets/generated and ensure it can be referenced from React via a stable public path.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Apply the new playground landscape background to the Home (session setup) screen in a way that preserves readability and the existing pixel-desktop theme. The background must not interfere with interactions (forms/buttons) and must not obscure the persistent PetOverlay when a session is active.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/screens/SessionSetupScreen.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/AppShell.tsx",
+          "frontend/src/screens/SessionSetupScreen.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Make the app end-to-end functional by ensuring the complete flow works without runtime errors for both authenticated and unauthenticated states: login (Internet Identity) → profile setup (if missing) → start session → focus timer → transition to break → save completed session to backend → view session history in Progress, with graceful handling when the user is not logged in (no unauthorized traps causing a broken UI).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/screens/BreakRewardScreen.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/screens/BreakRewardScreen.tsx"
+        ]
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/screens/SessionSetupScreen.tsx",
+          "frontend/src/screens/ProgressSettingsScreen.tsx",
+          "frontend/src/components/DistractedCheckInDialog.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/screens/SessionSetupScreen.tsx",
+          "frontend/src/screens/ProgressSettingsScreen.tsx",
+          "frontend/src/components/DistractedCheckInDialog.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/AppShell.tsx",
+    "frontend/src/components/DistractedCheckInDialog.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/screens/BreakRewardScreen.tsx",
+    "frontend/src/screens/ProgressSettingsScreen.tsx",
+    "frontend/src/screens/SessionSetupScreen.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

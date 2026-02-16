@@ -1,0 +1,225 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 7,
+  "summary": "Build “Your Desk Pet”: a lightweight desktop productivity/pomodoro app-game with a persistent on-screen virtual pet (cat or dog) that reacts in real time to focus/procrastination and rewards completed sessions with positive interactions (feeding/grooming/petting).",
+  "architectural_notes": [
+    "Pet art style: simple pixel art characters (cat and dog).",
+    "Emotional design constraint: roasts are playful, not abusive; focus on emotional payoff over points-heavy gamification.",
+    "Overlay requirement: pet remains persistently visible on screen during focus sessions; animations should be subtle to avoid distraction.",
+    "Pet overlay presentation: render as a single pet figure (minimal chrome) and persist across in-app screen navigation (overlay mounted above route changes).",
+    "Home screen visual direction: pixel-art playground landscape background with pets playing (keep subtle to avoid distraction)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Pixel-art playground landscape background with small pets playing in the distance (playground-landscape-bg.dim_1920x1080.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-the-core-set-focus-time-flow-allow-the-user-to-select-a-pet-cat-or-dog-configure-focus-duration-and-break-duration-optionally-enable-repeating-break-cycles-and-optionally-enter-a-task-list-for-the-session",
+      "title": "Implement the core “Set Focus Time” flow: allow the user to select a pet (Cat or Dog), configure focus duration and break duration, optionally enable repeating break cycles, and optionally enter a task list for the session.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-active-focus-session-screen-with-a-persistent-on-screen-pet-overlay-area-that-remains-visible-while-the-user-uses-the-app-with-subtle-idle-animations-and-a-visible-countdown-timer-for-the-focus-phase",
+      "title": "Create an “Active Focus Session” screen with a persistent on-screen pet overlay area that remains visible while the user uses the app, with subtle idle animations and a visible countdown timer for the focus phase.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-mood-system-and-visual-mood-indicator-tied-to-user-focus-behavior-during-the-focus-phase-with-escalating-states-based-on-procrastination-interruption-duration",
+      "title": "Implement a mood system and visual mood indicator tied to user “focus behavior” during the focus phase, with escalating states based on procrastination/interruption duration.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-in-app-behavior-monitoring-signals-that-can-drive-procrastination-detection-without-relying-on-os-level-app-monitoring-support-a-inactivity-detection-no-mouse-keyboard-interaction-in-the-page-for-n-minutes-b-tab-app-visibility-change-detection-page-hidden-visible-and-c-manual-check-ins-i-got-distracted-plus-a-user-configurable-list-of-wasted-time-platforms-as-labels-used-in-manual-check-ins",
+      "title": "Add in-app “behavior monitoring” signals that can drive procrastination detection without relying on OS-level app monitoring: support (a) inactivity detection (no mouse/keyboard interaction in the page for N minutes), (b) tab/app visibility change detection (page hidden/visible), and (c) manual check-ins (“I got distracted”) plus a user-configurable list of “wasted time platforms” as labels used in manual check-ins.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-tiered-dialogue-system-with-personality-specific-tone-and-escalation-rules-cat-delivers-judgmental-passive-aggressive-lines-dog-delivers-needy-supportive-lines-that-become-progressively-roast-y-dialogues-escalate-based-on-accumulated-procrastination-duration-and-can-also-show-a-distinct-completion-line-at-focus-completion",
+      "title": "Implement a tiered dialogue system with personality-specific tone and escalation rules: Cat delivers judgmental/passive-aggressive lines, Dog delivers needy/supportive lines that become progressively roast-y; dialogues escalate based on accumulated procrastination duration and can also show a distinct completion line at focus completion.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-session-completion-and-reward-state-flow-when-the-focus-timer-completes-unlock-feeding-interaction-during-the-break-phase-show-positive-pet-animations-affirmations-during-the-configured-break-time-and-optionally-allow-additional-simple-interactions-groom-pet-play-during-break",
+      "title": "Implement the “Session Completion” and “Reward State” flow: when the focus timer completes, unlock feeding interaction during the break phase, show positive pet animations/affirmations during the configured break time, and optionally allow additional simple interactions (groom/pet/play) during break.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-persist-user-configuration-and-lightweight-session-history-store-pet-choice-default-focus-break-durations-wasted-platform-labels-and-a-simple-log-of-completed-focus-sessions-timestamp-duration-pet-for-optional-progress-consistency-viewing",
+      "title": "Persist user configuration and lightweight session history: store pet choice, default focus/break durations, wasted-platform labels, and a simple log of completed focus sessions (timestamp + duration + pet) for optional progress/consistency viewing.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-playful-pixel-desktop-visual-theme-across-the-app-colors-typography-layout-that-fits-a-light-productivity-game-and-is-enforced-consistently-across-screens",
+      "title": "Apply a coherent, playful pixel-desktop visual theme across the app (colors, typography, layout) that fits a light productivity game and is enforced consistently across screens.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-pixel-art-static-assets-cat-dog-and-simple-ui-reward-sprites-and-render-them-in-the-pet-overlay-mood-states-and-feeding-reward-interactions-using-files-stored-under-frontend-public-assets-generated",
+      "title": "Add generated pixel-art static assets (cat, dog, and simple UI/reward sprites) and render them in the pet overlay, mood states, and feeding/reward interactions using files stored under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-petoverlay-ui-so-the-floating-pet-pop-up-visually-reads-as-a-single-animal-figure-rather-than-a-large-panel-card-remove-the-large-bordered-container-styling-and-keep-only-the-pet-sprite-and-optional-small-controls-while-preserving-the-speech-bubble-positioning-and-pixel-art-rendering",
+      "title": "Update the PetOverlay UI so the floating pet “pop up” visually reads as a single animal figure rather than a large panel/card. Remove the large bordered container styling and keep only the pet sprite (and optional small controls), while preserving the speech bubble positioning and pixel-art rendering.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-pet-overlay-persist-across-app-screen-navigation-while-a-session-is-active-when-the-user-switches-between-screens-e-g-home-setup-progress-focus-break-during-an-ongoing-focus-break-session-the-pet-overlay-remains-visible-without-disappearing",
+      "title": "Make the pet overlay persist across app screen navigation while a session is active: when the user switches between screens (e.g., Home/Setup, Progress, Focus, Break) during an ongoing focus/break session, the pet overlay remains visible without disappearing.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-underlying-session-state-continues-correctly-when-navigating-away-from-the-focus-break-screens-i-e-session-timers-and-phase-transitions-should-not-reset-just-because-the-user-navigated-to-another-screen",
+      "title": "Ensure the underlying session state continues correctly when navigating away from the focus/break screens (i.e., session timers and phase transitions should not reset just because the user navigated to another screen).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-new-pixel-art-style-home-page-background-image-depicting-a-playground-landscape-with-pets-playing-in-the-distance-no-ui-text-embedded-in-the-image-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-ensure-it-can-be-referenced-from-react-via-a-stable-public-path",
+      "title": "Generate a new pixel-art style Home page background image depicting a playground landscape with pets playing in the distance (no UI text embedded in the image). Store it as a static asset under frontend/public/assets/generated and ensure it can be referenced from React via a stable public path.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-the-new-playground-landscape-background-to-the-home-session-setup-screen-in-a-way-that-preserves-readability-and-the-existing-pixel-desktop-theme-the-background-must-not-interfere-with-interactions-forms-buttons-and-must-not-obscure-the-persistent-petoverlay-when-a-session-is-active",
+      "title": "Apply the new playground landscape background to the Home (session setup) screen in a way that preserves readability and the existing pixel-desktop theme. The background must not interfere with interactions (forms/buttons) and must not obscure the persistent PetOverlay when a session is active.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-app-end-to-end-functional-by-ensuring-the-complete-flow-works-without-runtime-errors-for-both-authenticated-and-unauthenticated-states-login-internet-identity-profile-setup-if-missing-start-session-focus-timer-transition-to-break-save-completed-session-to-backend-view-session-history-in-progress-with-graceful-handling-when-the-user-is-not-logged-in-no-unauthorized-traps-causing-a-broken-ui",
+      "title": "Make the app end-to-end functional by ensuring the complete flow works without runtime errors for both authenticated and unauthenticated states: login (Internet Identity) → profile setup (if missing) → start session → focus timer → transition to break → save completed session to backend → view session history in Progress, with graceful handling when the user is not logged in (no unauthorized traps causing a broken UI).",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-saved-user-settings-focus-duration-break-duration-wasted-platforms-to-prefill-and-synchronize-the-home-setup-experience-and-distraction-check-ins-so-the-default-configuration-is-consistent-across-home-and-progress-settings",
+      "title": "Use saved user settings (focus duration, break duration, wasted platforms) to prefill and synchronize the Home/Setup experience and distraction check-ins, so the default configuration is consistent across Home and Progress Settings.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Pomodoro-style focus + break session setup (custom durations) with optional break cycles and goals",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Task list support tied to focus sessions (optional tasks)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Persistent always-on-top/floating desktop overlay that shows the pet during sessions with subtle animations",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "User behavior monitoring during focus (e.g., inactivity, app switching, manual check-ins) with configurable “wasted time” platforms",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Pet mood system with visual indicator and mood changes tied to user behavior/procrastination duration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Tiered dialogue system with personality-specific tone (cat: judgmental; dog: needy) and escalation based on time wasted",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Session completion reward interactions (feed; optionally groom/pet/play) during break with positive animations/affirmations",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Optional progress/consistency tracking (lightweight; not points-heavy)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Backend: add Motoko canister methods to support saving/loading per-user settings and appending/querying session history (completed focus sessions).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Refine pet overlay UI: show as a single animal figure (not a larger panel) and keep it persistent/visible when navigating between app screens",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Home page background art: playground landscape with pets playing in the background (fits pixel theme)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Make the app end-to-end functional: ensure the full user flow works from session setup → active focus → break/rewards → persistence/history without broken navigation/state",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Your Desk Pet",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

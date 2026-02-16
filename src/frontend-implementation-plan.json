@@ -1,0 +1,101 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Playground pixel-art Home background + reliable end-to-end flow and settings sync (frontend-only)",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "summary": "Add the required pixel-art playground landscape background as a generated static asset usable via a stable public path.",
+      "acceptanceCriteria": [
+        "A new background image file exists at frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png",
+        "The image visually reads as a playground landscape scene with small pets playing in the background, in a cohesive pixel-art style",
+        "No text, logos, or UI elements are baked into the image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated pixel-art playground landscape background image asset (no embedded text) exactly at this path so it can be referenced from React via a stable public path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Apply the playground background to the Home/Setup screen while preserving readability, clickability, and PetOverlay layering.",
+      "acceptanceCriteria": [
+        "When the current screen is Home/Setup, the playground background is visible behind the content",
+        "Session setup form content remains legible (e.g., via an overlay tint/blur layer or solid card background) in both light and dark mode",
+        "Interactive controls on the Home/Setup screen remain clickable (background layer does not capture pointer events)",
+        "When a session is active and PetOverlay is shown, the overlay remains visible above the background and Home content"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "modify",
+          "description": "Conditionally render a Home/Setup-only background layer that uses the static asset at frontend/public/assets/generated/playground-landscape-bg.dim_1920x1080.png, including a tint/blur/readability overlay; ensure the background wrapper uses pointer-events-none and appropriate z-index so interactive content remains clickable and PetOverlay stays above. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/SessionSetupScreen.tsx",
+          "operation": "modify",
+          "description": "Adjust the Session Setup content container/card styling as needed (e.g., more solid/opaque card background in light/dark) to keep form text and inputs readable over the new background without changing the overall pixel-desktop theme. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Fix frontend auth-conditional data fetching and session-saving behavior so the full user flow works without runtime errors for logged-in and logged-out states.",
+      "acceptanceCriteria": [
+        "Unauthenticated users can load the app and use the Home/Setup screen without the UI breaking due to failed backend queries (no uncaught exceptions from unauthorized calls)",
+        "After logging in, if no profile exists, the ProfileSetupDialog appears and saving a profile results in the app continuing normally",
+        "Starting a session from Home/Setup navigates to Focus and the countdown behaves normally (pause/resume/end still work)",
+        "When the focus phase completes and the app transitions to Break, the completed session is saved exactly once via the backend addSession call",
+        "After at least one completed session, Progress shows the session in “Recent Sessions” without requiring a page refresh",
+        "If the user navigates between Home and Progress during an active session, the session state remains active and does not reset (no broken navigation/state)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update React Query hooks to be identity-aware: prevent backend calls that require a user when unauthenticated (disable queries and/or handle authorization traps gracefully), and align calls with the typed backend interface (e.g., pass the logged-in principal to user-scoped reads and use the correct addSession argument shape/order including wasSuccessful). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/BreakRewardScreen.tsx",
+          "operation": "modify",
+          "description": "Make completed-session saving robust: only attempt saving when authenticated, call addSession with the correct parameter set (including wasSuccessful), and ensure it is saved exactly once per completed focus phase even across re-renders/mounts; handle failures gracefully without breaking the UI and ensure session history updates via query invalidation. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Prefill and synchronize Home/Setup durations and distraction platforms from saved user settings when logged in, with local defaults when logged out.",
+      "acceptanceCriteria": [
+        "When logged in and user settings exist, the Home/Setup screen initializes focus and break duration inputs using the saved defaults",
+        "Updating settings in Progress (focus/break/platforms) and saving them persists to the backend and is reflected when returning to Home/Setup",
+        "The distraction platform list used by “I got distracted” reflects the saved wastedPlatforms list when logged in",
+        "When not logged in, the app uses local defaults and does not attempt settings persistence"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Ensure the user settings query/mutation behavior supports settings sync: fetch settings only when authenticated and invalidate/refetch appropriately after saving so other screens (Home/Setup, distraction check-ins) see the updated values without refresh. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/SessionSetupScreen.tsx",
+          "operation": "modify",
+          "description": "Use saved user settings (when authenticated) to prefill focus/break durations (and pet type if applicable) on the Home/Setup form, while avoiding overwriting user edits mid-session; when unauthenticated, keep local defaults and do not attempt persistence. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/screens/ProgressSettingsScreen.tsx",
+          "operation": "modify",
+          "description": "Adjust settings save payload composition to reflect the user’s current settings state (durations/platforms and any other persisted fields) and ensure saving triggers an immediate UI sync (via existing query invalidation) so returning to Home/Setup reflects the latest defaults. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/DistractedCheckInDialog.tsx",
+          "operation": "modify",
+          "description": "Ensure the distraction platform list consistently reflects saved wastedPlatforms when logged in and falls back to local defaults when logged out, without triggering unauthorized backend calls. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}
